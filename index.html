@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reaction Tester</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        body {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: crimson;
+            display: none;
+            position: relative;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+    
+
+   
+    
+<body>
+    <h1>Test Your Reaction</h1>
+    <p>Click on the boxes and circles as quickly as you can~!~</p>
+    <p class="bold">Your time: <span id="time"></span></p>
+    <div id="box"></div>
+    <script>
+        
+        var createdTime; 
+        var clickedTime;
+        var reactionTime;
+        
+        function makeBox() {
+            var time = Math.floor(Math.random() * 6) * 1000;
+            setTimeout(function(){
+                if(Math.random() > 0.5){
+                    document.getElementById("box").style.borderRadius="100px";
+                } else {
+                    document.getElementById("box").style.borderRadius="0";
+                }
+                var top = Math.random() * 300 + "px";
+                var left = Math.random() * 1000 + "px";
+                document.getElementById("box").style.top=top;
+                document.getElementById("box").style.left=left;
+                document.getElementById("box").style.display="block";
+                document.getElementById("box").style.backgroundColor=getRandomColor();
+                createdTime = Date.now();
+            }, time);
+        }
+        
+        makeBox();
+        
+        document.getElementById("box").onclick=function(){
+            clickedTime = Date.now();
+            reactionTime = (clickedTime - createdTime) / 1000;
+            //alert(reactionTime);
+            document.getElementById("time").innerHTML=reactionTime + " second";
+            this.style.display="none";
+            makeBox();   
+        }
+        
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        
+        
+       
+  
+    
+    
+    </script>
+    
+</body>
+    
+</head>
+</html>
